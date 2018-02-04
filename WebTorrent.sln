@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{15E38D17-ECED-49D4-A161-38EC79E795E9}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTorrent.Data", "src\WebTorrent.Data\WebTorrent.Data.csproj", "{84558A44-A2AC-4695-BAA5-00F24781800B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTorrent.Web", "src\WebTorrent.Web\WebTorrent.Web.csproj", "{77E9CD73-A128-4140-8E3F-84DB79EC7EF8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTorrent.Services", "src\WebTorrent.Services\WebTorrent.Services.csproj", "{E628559B-BA4E-4064-89D2-456BCFA466C2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebTorrent.Tools", "src\WebTorrent.Tools\WebTorrent.Tools.csproj", "{9C852009-F61D-4D6B-8BB1-FEB3225B9ABA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTorrent.Common", "src\WebTorrent.Common\WebTorrent.Common.csproj", "{D380E5CB-D6E7-4E14-BB81-52AE92E2944B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UTorrentClientApi", "src\WebTorrent.UTorrent\UTorrentClientApi.csproj", "{911BF372-72EC-43AD-BF76-0E621B592BE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84558A44-A2AC-4695-BAA5-00F24781800B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84558A44-A2AC-4695-BAA5-00F24781800B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84558A44-A2AC-4695-BAA5-00F24781800B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84558A44-A2AC-4695-BAA5-00F24781800B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E9CD73-A128-4140-8E3F-84DB79EC7EF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E9CD73-A128-4140-8E3F-84DB79EC7EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E9CD73-A128-4140-8E3F-84DB79EC7EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E9CD73-A128-4140-8E3F-84DB79EC7EF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E628559B-BA4E-4064-89D2-456BCFA466C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E628559B-BA4E-4064-89D2-456BCFA466C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E628559B-BA4E-4064-89D2-456BCFA466C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E628559B-BA4E-4064-89D2-456BCFA466C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C852009-F61D-4D6B-8BB1-FEB3225B9ABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C852009-F61D-4D6B-8BB1-FEB3225B9ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C852009-F61D-4D6B-8BB1-FEB3225B9ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C852009-F61D-4D6B-8BB1-FEB3225B9ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D380E5CB-D6E7-4E14-BB81-52AE92E2944B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D380E5CB-D6E7-4E14-BB81-52AE92E2944B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D380E5CB-D6E7-4E14-BB81-52AE92E2944B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D380E5CB-D6E7-4E14-BB81-52AE92E2944B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{911BF372-72EC-43AD-BF76-0E621B592BE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{911BF372-72EC-43AD-BF76-0E621B592BE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{911BF372-72EC-43AD-BF76-0E621B592BE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{911BF372-72EC-43AD-BF76-0E621B592BE3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA5BF9F6-2622-4559-A5C3-356662741D96}
+	EndGlobalSection
+EndGlobal

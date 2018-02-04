@@ -1,6 +1,6 @@
-/Properties/launchSettings.json
-/Properties/PublishProfiles
-/_Factory
+Properties/launchSettings.json
+Properties/PublishProfiles
+_Factory
 ## /Migrations
 
 ## Ignore Visual Studio temporary files, build results, and
@@ -30,9 +30,15 @@ obj/
 Obj/
 
 # Visual Studio 2015 cache/options directory
+# Visual Studio 2015 cache/options directory
 .vs/
-/wwwroot/dist/
-/ClientApp/dist/
+/wwwroot/dist/**
+/ClientApp/dist/**
+
+# Workaround for https://github.com/aspnet/JavaScriptServices/issues/235
+!/wwwroot/dist/_placeholder.txt
+!/ClientApp/dist/_placeholder.txt
+node_modules/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -244,3 +250,5 @@ _Pvt_Extensions
 *.licenseheader
 Thumbs.db
 /.cr
+/src/WebTorrent.Web/wwwroot
+/src/WebTorrent.Web/Properties
