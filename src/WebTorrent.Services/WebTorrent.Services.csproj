@@ -5,16 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WebTorrent.Common\WebTorrent.Common.csproj" />
     <ProjectReference Include="..\WebTorrent.Data\WebTorrent.Data.csproj" />
     <ProjectReference Include="..\WebTorrent.Tools\WebTorrent.Tools.csproj" />
     <ProjectReference Include="..\WebTorrent.UTorrent\UTorrentClientApi.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="AutoMapper">
-      <HintPath>C:\Users\Alexander\.nuget\packages\automapper\6.2.2\lib\netstandard1.3\AutoMapper.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

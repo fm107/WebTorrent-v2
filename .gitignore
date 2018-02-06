@@ -252,3 +252,4 @@ Thumbs.db
 /.cr
 /src/WebTorrent.Web/wwwroot
 /src/WebTorrent.Web/Properties
+/src/WebTorrent.Web/ClientApp/dist
