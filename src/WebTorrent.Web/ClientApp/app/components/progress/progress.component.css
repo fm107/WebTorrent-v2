@@ -1,0 +1,25 @@
+﻿.txt_alignment {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.info-column {
+    margin-top: 20px;
+    width: 90px;
+}
+
+.indent-column { margin-left: 20%; }
+
+.indent {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 1%;
+}
+
+.popup-dialog-content {
+    display: block;
+    margin: auto;
+    width: 40%;
+}
+
+.popup-dialog { top: 40% }

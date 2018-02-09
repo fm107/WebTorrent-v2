@@ -22,6 +22,7 @@
                         <li routerLinkActive="active" *ngIf="canViewProducts"><a routerLink="/products">{{'mainMenu.Products' | translate}}</a></li>
                         <li routerLinkActive="active" *ngIf="canViewOrders"><a routerLink="/orders">{{'mainMenu.Orders' | translate}}</a></li>
                         <li routerLinkActive="active"><a routerLink="/about">{{'mainMenu.About' | translate}}</a></li>
+                        <li routerLinkActive="active" *ngIf="canViewTorrents"><a routerLink="/torrent">{{'mainMenu.Torrents' | translate}}</a></li>
                     </ul>
                     <ul class="app-component nav navbar-nav nav-pills navBarPadding navbar-right">
                         <li (click)="logout()"><a href="javascript:;"><span class="glyphicon glyphicon-log-out"></span> {{'mainMenu.Logout' | translate}}</a></li>
@@ -62,7 +63,7 @@
                     Loaded!
                 </h1>
                 <p>
-                    QUICK APPLICATION SYSTEM - <span class="appName" style="font-style:italic">quick</span><span class="appName">App</span> &copy; <a href="https://www.ebenmonney.com">WWW.EBENMONNEY.COM</a>
+                    WebTorrent - <span class="appName" style="font-style:italic">Streaming browser torrent client </span><span class="appName">App</span>&copy;
                 </p>
 
             </div>
@@ -78,8 +79,8 @@
                     <footer>
                         <div class="app-component vcenter_text center-block">
                             <p class="text-center text-muted">
-                                <span class="appName" style="font-style:italic">quick</span><span class="appName">App</span> &copy; {{getYear()}}
-                                <a href="https://www.ebenmonney.com" target="_blank">www.ebenmonney.com</a>
+                                <span class="appName" style="font-style:italic">Webtorrent</span><span class="appName">App</span> &copy; {{getYear()}}
+                                <!--<a href="https://www.ebenmonney.com" target="_blank">www.ebenmonney.com</a>-->
                                 <!--<span class="small display-none">- Powered by <a href="https://www.ebenmonney.com/quickapp" target="_blank"><span class="appName" style="font-style:italic">quick</span><span class="appName">App</span></a></span>-->
                             </p>
                         </div>

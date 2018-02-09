@@ -1,5 +1,4 @@
-﻿
-import { Component, ViewEncapsulation, OnInit, OnDestroy, ViewChildren, AfterViewInit, QueryList, ElementRef } from "@angular/core";
+﻿import { Component, ViewEncapsulation, OnInit, OnDestroy, ViewChildren, AfterViewInit, QueryList, ElementRef } from "@angular/core";
 import { Router, NavigationStart } from '@angular/router';
 import { ToastyService, ToastyConfig, ToastOptions, ToastData } from 'ng2-toasty';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -19,7 +18,7 @@ var alertify: any = require('../assets/scripts/alertify.js');
 
 
 @Component({
-    selector: "quick-app",
+    selector: "app",
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css', '../styles.css', '../themes.css'],
     encapsulation: ViewEncapsulation.None
@@ -31,7 +30,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     shouldShowLoginModal: boolean;
     removePrebootScreen: boolean;
     newNotificationCount = 0;
-    appTitle = "Quick Application";
+    appTitle = "WebTorrent Application";
     appLogo = require("../assets/images/logo.png");
 
     stickyToasties: number[] = [];
@@ -348,6 +347,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     get canViewOrders() {
+        return true; //eg. viewOrdersPermission
+    }
+
+    get canViewTorrents() {
         return true; //eg. viewOrdersPermission
     }
 }

@@ -1,4 +1,3 @@
-
 import { NgModule, ErrorHandler } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
@@ -61,10 +60,49 @@ import { RolesManagementComponent } from "./components/controls/roles-management
 import { RoleEditorComponent } from "./components/controls/role-editor.component";
 
 
+//old
+//mport { UniversalModule } from "angular2-universal";
+import { HttpModule } from "@angular/http";
+import { CommonModule } from "@angular/common";
+
+import { MatIconModule} from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/';
+import { FlexLayoutModule } from "@angular/flex-layout";
+
+import {
+  CovalentLoadingModule, TdLoadingFactory, CovalentDialogsModule, CovalentSearchModule, CovalentDataTableModule,
+  CovalentFileModule, TdFileService } from "@covalent/core";
+
+import { SimpleTimer } from "ng2-simple-timer";
+
+import { TorrentComponent } from "./components/torrent/torrent.component";
+import { InvokePlayerComponent } from "./components/invoke-player/invoke-player.component";
+import { NavMenuComponent } from "./components/navmenu/navmenu.component";
+import { UploadButtonComponent } from "./components/upload-button/upload-button.component";
+import { UploadButtonUrlComponent } from "./components/upload-button-url/upload-button-url.component";
+import { VideoJSComponent } from "./components/videojs/videojs.component";
+
+import { ProgressComponent } from "./components/progress/progress.component";
+import { DataPresenterComponent } from "./components/data-presenter/data-presenter.component";
+import { FlowplayerComponent } from "./components/flowplayer/flowplayer.component";
+
+import { DataService } from "./services/data.service";
+import { WebSocketService } from "./services/websocket.service";
+import { ContentService } from "./services/content.service";
+import { TorrentProgressService } from "./services/torrent-progress.service";
+import { ComponentInjectorService } from "./services/component-injector.service";
+
+import { FilterPipe } from "./pipes/filter.pipe";
+import { SortPipe } from "./pipes/sort.pipe";
+import { FileSizePipe } from "./pipes/filesize.pipe";
+import { ShowFilesPipe } from "./pipes/show-files.pipe";
+
+
 
 
 @NgModule({
-    imports: [
+  imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
@@ -83,7 +121,21 @@ import { RoleEditorComponent } from "./components/controls/role-editor.component
         BsDropdownModule.forRoot(),
         CarouselModule.forRoot(),
         ModalModule.forRoot(),
-        ChartsModule
+        ChartsModule,
+
+        //old
+        //UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
+
+        HttpModule,
+        CommonModule,
+        MatTooltipModule,
+        MatIconModule,
+        MatInputModule,
+        FlexLayoutModule,
+        CovalentDialogsModule,
+        CovalentFileModule,
+        CovalentSearchModule,
+    CovalentDataTableModule, CovalentLoadingModule
     ],
     declarations: [
         AppComponent,
@@ -107,7 +159,18 @@ import { RoleEditorComponent } from "./components/controls/role-editor.component
         BootstrapToggleDirective,
         BootstrapSelectDirective,
         BootstrapDatepickerDirective,
-        GroupByPipe
+        GroupByPipe,
+
+        //old
+        TorrentComponent,
+        InvokePlayerComponent,
+        FlowplayerComponent,
+
+        NavMenuComponent,
+        UploadButtonComponent, UploadButtonUrlComponent, DataPresenterComponent, VideoJSComponent,
+        ProgressComponent,
+      FilterPipe, SortPipe, FileSizePipe, ShowFilesPipe
+
     ],
     providers: [
         { provide: 'BASE_URL', useFactory: getBaseUrl },
@@ -121,14 +184,18 @@ import { RoleEditorComponent } from "./components/controls/role-editor.component
         AccountService,
         AccountEndpoint,
         LocalStoreManager,
-        EndpointFactory
+        EndpointFactory,
+
+        //old
+        DataService, ContentService, TorrentProgressService, WebSocketService, SimpleTimer,
+      TdFileService, ComponentInjectorService, TdLoadingFactory
     ],
+    //old
+    entryComponents: [InvokePlayerComponent, FlowplayerComponent],
     bootstrap: [AppComponent]
 })
 export class AppModule {
 }
-
-
 
 
 export function getBaseUrl() {

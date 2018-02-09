@@ -2,6 +2,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 
 module.exports = (env) => {
@@ -13,13 +14,14 @@ module.exports = (env) => {
         resolve: { extensions: ['.js', '.ts'] },
         output: {
             filename: '[name].js',
-            publicPath: '/dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
+            publicPath: 'dist/' // Webpack dev middleware, if enabled, handles requests for this URL prefix
         },
         module: {
             rules: [
-                { test: /\.ts$/, include: /ClientApp/, use: ['awesome-typescript-loader?silent=true', 'angular2-template-loader'] },
+                { test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/, use: isDevBuild ? ['awesome-typescript-loader?silent=true', 'angular2-template-loader'] : '@ngtools/webpack' },
                 { test: /\.html$/, use: 'html-loader?minimize=false' },
-                { test: /\.css$/, use: ['to-string-loader', 'css-loader'] },
+                { test: /\.css$/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize'] },
+                { test: /\.scss$/, use: ['to-string-loader', isDevBuild ? 'css-loader' : 'css-loader?minimize', 'sass-loader'] },
                 { test: /\.(png|jpg|jpeg|gif|svg)$/, use: 'url-loader?limit=25000' }
             ]
         },
@@ -29,7 +31,7 @@ module.exports = (env) => {
     // Configuration for client-side bundle suitable for running in browsers
     const clientBundleOutputDir = './wwwroot/dist';
     const clientBundleConfig = merge(sharedConfig, {
-        entry: { 'main-client': './ClientApp/boot-client.ts' },
+        entry: { 'main-client': './ClientApp/boot.browser.ts' },
         output: { path: path.join(__dirname, clientBundleOutputDir) },
         plugins: [
             new webpack.DllReferencePlugin({
@@ -44,29 +46,13 @@ module.exports = (env) => {
             })
         ] : [
                 // Plugins that apply in production builds only
-                new webpack.optimize.UglifyJsPlugin()
+                new webpack.optimize.UglifyJsPlugin(),
+                new AngularCompilerPlugin({
+                    tsConfigPath: './tsconfig.json',
+                    entryModule: path.join(__dirname, 'ClientApp/app/app.module#AppModule')
+                })
             ])
     });
 
-    // Configuration for server-side (prerendering) bundle suitable for running in Node
-    const serverBundleConfig = merge(sharedConfig, {
-        resolve: { mainFields: ['main'] },
-        entry: { 'main-server': './ClientApp/boot-server.ts' },
-        plugins: [
-            new webpack.DllReferencePlugin({
-                context: __dirname,
-                manifest: require('./wwwroot/dist/vendor-manifest.json'),
-                sourceType: 'commonjs2',
-                name: './vendor'
-            })
-        ],
-        output: {
-            libraryTarget: 'commonjs',
-            path: path.join(__dirname, './ClientApp/dist')
-        },
-        target: 'node',
-        devtool: 'inline-source-map'
-    });
-
-    return [clientBundleConfig, serverBundleConfig];
+    return [clientBundleConfig];
 };

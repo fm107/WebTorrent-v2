@@ -1,5 +1,4 @@
-﻿
-import { NgModule } from '@angular/core';
+﻿import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { LoginComponent } from "./components/login/login.component";
@@ -12,6 +11,7 @@ import { AboutComponent } from "./components/about/about.component";
 import { NotFoundComponent } from "./components/not-found/not-found.component";
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './services/auth-guard.service';
+import { TorrentComponent } from "./components/torrent/torrent.component";
 
 
 
@@ -25,8 +25,9 @@ import { AuthGuard } from './services/auth-guard.service';
             { path: "orders", component: OrdersComponent, canActivate: [AuthGuard], data: { title: "Orders" } },
             { path: "settings", component: SettingsComponent, canActivate: [AuthGuard], data: { title: "Settings" } },
             { path: "about", component: AboutComponent, data: { title: "About Us" } },
+            { path: "torrent", component: TorrentComponent, data: { title: "Web Torrent" } },
             { path: "home", redirectTo: "/", pathMatch: "full" },
-            { path: "**", component: NotFoundComponent, data: { title: "Page Not Found" } },
+            { path: "**", component: NotFoundComponent, data: { title: "Page Not Found" } }
         ])
     ],
     exports: [

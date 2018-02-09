@@ -1,0 +1,4 @@
+﻿<video *ngIf="url" id="video_{{idx}}" class="video-js vjs-default-skin vjs-big-play-centered"
+       controls preload="metadata" width="540" height="364">
+    <source [src]="url" type="application/x-mpegURL">
+</video>

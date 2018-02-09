@@ -1,0 +1,86 @@
+﻿<div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+    <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+        <span class="md-title">WebTorrent</span>
+    </span>
+    <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Search here"
+                   (searchDebounce)="search($event)"
+                   (search)="search($event)"
+                   (clear)="hasData = true" flex>
+    </td-search-box>
+</div>
+<table>
+    <tr td-data-table-row>
+        <th td-data-table-column
+            [name]="icon"
+            [active]="false"
+            [sortable]="false">
+        </th>
+        <th class="name-column" td-data-table-column
+            [name]="name.name"
+            [active]="name.sortable && name.name === sortBy"
+            [sortable]="name.sortable"
+            [sortOrder]="sortOrder"
+            (sortChange)="sort($event)">
+            <span class="text-input--material__label--active" matTooltip="{{name.tooltip}}">{{name.label}}</span>
+        </th>
+        <th class="pointer--cursor" td-data-table-column
+            [name]="info"
+            [active]="false"
+            [sortable]="false">
+            <div class="disabled" layout="row" layout-align="center center">
+                <mat-icon> class="md-icon--home">add</mat-icon>>
+                <span (click)="getContent()"> Create Folder</span>
+            </div>
+        </th>
+        <th class="size-column" td-data-table-column
+            [name]="size.name"
+            [active]="size.sortable && size.name === sortBy"
+            [sortable]="size.sortable"
+            [sortOrder]="sortOrder"
+            (sortChange)="sort($event)">
+            <span class="text-input--material__label--active" matTooltip="{{size.tooltip}}">{{size.label}}</span>
+        </th>
+        <th class="last-change-column" td-data-table-column
+            [name]="changed.name"
+            [active]="changed.sortable && changed.name === sortBy"
+            [sortable]="changed.sortable"
+            [sortOrder]="sortOrder"
+            (sortChange)="sort($event)">
+            <span class="text-input--material__label--active" matTooltip="{{changed.tooltip}}">{{changed.label}}</span>
+        </th>
+    </tr>
+    <tr td-data-table-row [ngClass]="{'folder-up' : showFolder}">
+        <td td-data-table-cell>
+            <div class="icon-column">
+                <img src="/img/cycle.png">
+            </div>
+        </td>
+        <td td-data-table-cell>
+            <div class="name-column">
+                <a (click)="onUp(parentFolder)">
+                    Folder Up
+                </a>
+            </div>
+        </td>
+    </tr>
+    <tr class="animated fadeInDown list__item--hover" td-data-table-row *ngFor="let content of filteredData | sort:sortBy:sortOrder">
+        <td td-data-table-cell>
+            <div class="icon-column">
+                <img *ngIf="content.type == 'folder'" src="/img/documents-icon.png">
+                <img *ngIf="content.type == 'file'" src="/img/document-movie-icon.png">
+            </div>
+        </td>
+        <td class="pointer--cursor" td-data-table-cell (click)="onClick(content)">{{content.name}}</td>
+        <td class="pointer--default" td-data-table-cell (mouseover)="hideMenuItems = false" (mouseleave)="hideMenuItems = true">
+            <div layout="row" layout-align="start center">
+                <torrentProgress [Item]="content"></torrentProgress>
+                <mat-icon class="deleteTorrent" *ngIf="!hideMenuItems" (click)="onDelete(content.hash)">clear</mat-icon>
+            </div>
+        </td>
+        <td class="pointer--default" td-data-table-cell>{{content.size | fileSize}}</td>
+        <td class="pointer--default" td-data-table-cell>{{content.lastChanged | date :'short'}}</td>
+    </tr>
+</table>
+<div class="md-padding" *ngIf="!hasData" layout="row" layout-align="center center">
+    <h3>No results</h3>
+</div>

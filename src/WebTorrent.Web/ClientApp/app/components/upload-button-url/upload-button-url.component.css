@@ -1,0 +1,31 @@
+﻿.button-url-position {
+    min-width: 1%;
+    width: 5%;
+    top: -8px;
+    -webkit-box-shadow: 0 3px 0 0 rgba(178, 49, 49, 1);
+    box-shadow: 0 3px 0 0 rgba(178, 49, 49, 1);
+}
+
+.button-url-icon-position {
+    position: relative;
+    /*top: -3px;*/
+    right: 12px;
+    font-size: 24px;
+}
+
+.upload-url-position {
+    top: 2px;
+    /*right: 13%;*/
+    bottom: auto;
+    left: auto;
+    position: relative;
+    z-index: 1;
+    margin-left: 10%;
+    /*height: 30px;
+    width: 30px;*/
+}
+
+.input-url-position {
+    width: 200px;
+    position: relative;
+}
