@@ -12,15 +12,14 @@ using WebTorrent.Data.Core;
 namespace WebTorrent.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180204174335_InitialCreate")]
+    [Migration("20180210212457_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
@@ -217,8 +216,7 @@ namespace WebTorrent.Web.Migrations
                     b.HasIndex("AuthorizationId");
 
                     b.HasIndex("ReferenceId")
-                        .IsUnique()
-                        .HasFilter("[ReferenceId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("OpenIddictTokens");
                 });
@@ -251,8 +249,7 @@ namespace WebTorrent.Web.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -318,10 +315,29 @@ namespace WebTorrent.Web.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("WebTorrent.Data.Models.Content", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CurrentFolder");
+
+                    b.Property<string>("Hash");
+
+                    b.Property<bool>("IsInProgress");
+
+                    b.Property<string>("ParentFolder");
+
+                    b.Property<string>("TorrentName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Content");
                 });
 
             modelBuilder.Entity("WebTorrent.Data.Models.Customer", b =>
@@ -366,6 +382,36 @@ namespace WebTorrent.Web.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("AppCustomers");
+                });
+
+            modelBuilder.Entity("WebTorrent.Data.Models.FileSystemItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ContentId");
+
+                    b.Property<string>("DownloadPath");
+
+                    b.Property<string>("FullName");
+
+                    b.Property<bool>("IsStreaming");
+
+                    b.Property<DateTime>("LastChanged");
+
+                    b.Property<string>("Name");
+
+                    b.Property<long>("Size");
+
+                    b.Property<string>("Stream");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContentId");
+
+                    b.ToTable("FsItem");
                 });
 
             modelBuilder.Entity("WebTorrent.Data.Models.Order", b =>
@@ -588,6 +634,13 @@ namespace WebTorrent.Web.Migrations
                     b.HasOne("OpenIddict.Models.OpenIddictAuthorization", "Authorization")
                         .WithMany("Tokens")
                         .HasForeignKey("AuthorizationId");
+                });
+
+            modelBuilder.Entity("WebTorrent.Data.Models.FileSystemItem", b =>
+                {
+                    b.HasOne("WebTorrent.Data.Models.Content")
+                        .WithMany("FsItems")
+                        .HasForeignKey("ContentId");
                 });
 
             modelBuilder.Entity("WebTorrent.Data.Models.Order", b =>

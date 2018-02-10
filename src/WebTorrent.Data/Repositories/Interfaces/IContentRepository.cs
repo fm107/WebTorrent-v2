@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using WebTorrent.Model;
+using WebTorrent.Data.Models;
 
 namespace WebTorrent.Data.Repositories.Interfaces
 {

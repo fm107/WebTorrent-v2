@@ -7,14 +7,14 @@ using WebTorrent.Data.Repositories.Interfaces;
 
 namespace WebTorrent.Data.Repositories
 {
-    public class CustomerRepository : Repository<Customer>, ICustomerRepository
+    public class CustomerRepository : BaseRepository<ApplicationDbContext, Customer>, ICustomerRepository
     {
         public CustomerRepository(ApplicationDbContext context) : base(context)
         {
         }
 
 
-        private ApplicationDbContext _appContext => (ApplicationDbContext) _context;
+        private ApplicationDbContext _appContext => _context;
 
 
         public IEnumerable<Customer> GetTopActiveCustomers(int count)

@@ -5,10 +5,11 @@
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
-    <Description>ASPNET Core - Angular4 startup template for Quick Application development</Description>
-    <Copyright>Copyright © 2017 www.ebenmonney.com</Copyright>
-    <PackageProjectUrl>https://github.com/emonney/QuickApp</PackageProjectUrl>
-    <Company>EBENMONNEY</Company>
+    <Description>Streaming browser torrent client application</Description>
+    <Copyright>Copyright © 2018</Copyright>
+    <PackageProjectUrl>https://github.com/fm107/WebTorrent-v2</PackageProjectUrl>
+    <Company></Company>
+    <UserSecretsId>645c008e-4482-4229-9781-059f195b2eb5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +19,7 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="7.4.0" />
     <PackageReference Include="MailKit" Version="2.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.1" />
     <PackageReference Include="OpenIddict" Version="2.0.0-rc2-0783" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-rc2-0783" />
@@ -73,6 +75,10 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+
+  <ItemGroup>
+    <None Remove="Database.db" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="ClientApp\app\assets\locale\ar.json" />

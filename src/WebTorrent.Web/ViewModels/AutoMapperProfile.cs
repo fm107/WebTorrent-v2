@@ -49,7 +49,7 @@ namespace WebTorrent.Web.ViewModels
             CreateMap<Order, OrderViewModel>()
                 .ReverseMap();
 
-            CreateMap<UTorrent.Api.Data.Torrent, Model.TorrentInfo>();
+            CreateMap<UTorrent.Api.Data.Torrent, TorrentInfo>();
         }
     }
 }

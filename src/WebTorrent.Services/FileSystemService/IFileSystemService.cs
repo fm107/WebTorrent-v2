@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UTorrent.Api.Data;
-using WebTorrent.Model;
+using WebTorrent.Data.Models;
 
 namespace WebTorrent.Services.FileSystemService
 {

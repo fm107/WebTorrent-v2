@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using WebTorrent.Model;
+using WebTorrent.Data.Models;
 
 namespace WebTorrent.Services.TorrentService
 {

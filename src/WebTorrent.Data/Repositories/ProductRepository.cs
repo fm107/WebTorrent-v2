@@ -4,9 +4,9 @@ using WebTorrent.Data.Repositories.Interfaces;
 
 namespace WebTorrent.Data.Repositories
 {
-    public class ProductRepository : Repository<Product>, IProductRepository
+    public class ProductRepository : BaseRepository<ApplicationDbContext, Product>, IProductRepository
     {
-        public ProductRepository(DbContext context) : base(context)
+        public ProductRepository(ApplicationDbContext context) : base(context)
         {
         }
 

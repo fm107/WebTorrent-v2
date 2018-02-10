@@ -21,7 +21,8 @@ namespace WebTorrent.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
-
+        public DbSet<Content> Content { get; set; }
+        public DbSet<FileSystemItem> FsItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -59,6 +60,15 @@ namespace WebTorrent.Data
             builder.Entity<Order>().ToTable($"App{nameof(Orders)}");
 
             builder.Entity<OrderDetail>().ToTable($"App{nameof(OrderDetails)}");
+
+            builder.Entity<Content>().HasKey(m => m.Id);
+            builder.Entity<Content>().HasMany(f => f.FsItems);
+            builder.Entity<Content>().Property(i => i.Id)
+                .ValueGeneratedOnAdd();
+
+            builder.Entity<FileSystemItem>().HasKey(m => m.Id);
+            builder.Entity<FileSystemItem>().Property(i => i.Id)
+                .ValueGeneratedOnAdd();
         }
 
 

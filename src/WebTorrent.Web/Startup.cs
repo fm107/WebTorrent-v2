@@ -1,4 +1,3 @@
-using System.IO;
 using System.Net;
 using AspNet.Security.OAuth.Validation;
 using AspNet.Security.OpenIdConnect.Primitives;
@@ -15,7 +14,6 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Swagger;
@@ -23,10 +21,8 @@ using WebTorrent.Data;
 using WebTorrent.Data.Core;
 using WebTorrent.Data.Core.Interfaces;
 using WebTorrent.Data.Models;
-using WebTorrent.Services;
 using WebTorrent.Services.FileSystemService;
 using WebTorrent.Services.TorrentService;
-using WebTorrent.Tools;
 using WebTorrent.Tools.FFmpeg;
 using WebTorrent.Web.Authorization;
 using WebTorrent.Web.Helpers;
@@ -37,17 +33,16 @@ namespace WebTorrent.Web
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
         //private readonly IHostingEnvironment _hostingEnvironment;
 
 
-
-        public Startup(IConfiguration configuration/*, IHostingEnvironment env*/)
+        public Startup(IConfiguration configuration /*, IHostingEnvironment env*/)
         {
             Configuration = configuration;
             //_hostingEnvironment = env;
         }
 
+        public IConfiguration Configuration { get; }
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -55,7 +50,11 @@ namespace WebTorrent.Web
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("WebTorrent.Web"));
+                options.UseSqlite(Configuration["ConnectionStrings:Sqlite"],
+                    b => b.MigrationsAssembly("WebTorrent.Web"));
+
+                //localdb
+                //options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("WebTorrent.Web"));
                 options.UseOpenIddict();
             });
 
@@ -85,7 +84,6 @@ namespace WebTorrent.Web
                 options.ClaimsIdentity.UserIdClaimType = OpenIdConnectConstants.Claims.Subject;
                 options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
             });
-
 
 
             // Register the OpenIddict services.
@@ -134,7 +132,6 @@ namespace WebTorrent.Web
             //});
 
 
-
             services.AddSwaggerGen(c =>
             {
                 c.AddSecurityDefinition("BearerAuth", new ApiKeyScheme
@@ -145,25 +142,28 @@ namespace WebTorrent.Web
                     Type = "apiKey"
                 });
 
-                c.SwaggerDoc("v1", new Info { Title = "QuickApp API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info {Title = "QuickApp API", Version = "v1"});
             });
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Authorization.Policies.ViewAllUsersPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ViewUsers));
-                options.AddPolicy(Authorization.Policies.ManageAllUsersPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ManageUsers));
+                options.AddPolicy(Policies.ViewAllUsersPolicy,
+                    policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ViewUsers));
+                options.AddPolicy(Policies.ManageAllUsersPolicy,
+                    policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ManageUsers));
 
-                options.AddPolicy(Authorization.Policies.ViewAllRolesPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ViewRoles));
-                options.AddPolicy(Authorization.Policies.ViewRoleByRoleNamePolicy, policy => policy.Requirements.Add(new ViewRoleAuthorizationRequirement()));
-                options.AddPolicy(Authorization.Policies.ManageAllRolesPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ManageRoles));
+                options.AddPolicy(Policies.ViewAllRolesPolicy,
+                    policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ViewRoles));
+                options.AddPolicy(Policies.ViewRoleByRoleNamePolicy,
+                    policy => policy.Requirements.Add(new ViewRoleAuthorizationRequirement()));
+                options.AddPolicy(Policies.ManageAllRolesPolicy,
+                    policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ManageRoles));
 
-                options.AddPolicy(Authorization.Policies.AssignAllowedRolesPolicy, policy => policy.Requirements.Add(new AssignRolesAuthorizationRequirement()));
+                options.AddPolicy(Policies.AssignAllowedRolesPolicy,
+                    policy => policy.Requirements.Add(new AssignRolesAuthorizationRequirement()));
             });
 
-            Mapper.Initialize(cfg =>
-            {
-                cfg.AddProfile<AutoMapperProfile>();
-            });
+            Mapper.Initialize(cfg => { cfg.AddProfile<AutoMapperProfile>(); });
 
 
             // Configurations
@@ -244,14 +244,14 @@ namespace WebTorrent.Web
             {
                 builder.Run(async context =>
                 {
-                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
                     context.Response.ContentType = MediaTypeNames.ApplicationJson;
 
                     var error = context.Features.Get<IExceptionHandlerFeature>();
 
                     if (error != null)
                     {
-                        string errorMsg = JsonConvert.SerializeObject(new { error = error.Error.Message });
+                        string errorMsg = JsonConvert.SerializeObject(new {error = error.Error.Message});
                         await context.Response.WriteAsync(errorMsg).ConfigureAwait(false);
                     }
                 });
@@ -259,10 +259,7 @@ namespace WebTorrent.Web
 
 
             app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "QuickApp API V1");
-            });
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "QuickApp API V1"); });
 
 
             app.UseMvc(routes =>

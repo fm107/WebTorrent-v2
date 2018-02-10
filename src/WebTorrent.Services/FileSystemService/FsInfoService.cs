@@ -5,8 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using UTorrent.Api.Data;
+using WebTorrent.Data.Models;
 using WebTorrent.Data.Repositories.Interfaces;
-using WebTorrent.Model;
 
 namespace WebTorrent.Services.FileSystemService
 {

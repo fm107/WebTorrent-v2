@@ -2,22 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using WebTorrent.Data;
+using WebTorrent.Data.Models;
 using WebTorrent.Data.Repositories.Interfaces;
-using WebTorrent.Model;
 
-namespace WebTorrent.Repository
+namespace WebTorrent.Data.Repositories
 {
-    internal class ContentRepository : BaseRepository<ContentDbContext, Content>, IContentRepository
+    internal class ContentRepository : BaseRepository<ApplicationDbContext, Content>, IContentRepository
     {
-        private readonly ContentDbContext _context;
-
-        public ContentRepository(ContentDbContext context) : base(context)
+        public ContentRepository(ApplicationDbContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<IList<Content>> FindByFolder(string folder, bool needFiles, string hash)
@@ -80,46 +75,6 @@ namespace WebTorrent.Repository
         async Task IContentRepository.Save()
         {
             await _context.SaveChangesAsync();
-        }
-
-        public void AddRange(IEnumerable<Content> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateRange(IEnumerable<Content> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(Content entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveRange(IEnumerable<Content> entities)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int Count()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Content> Find(Expression<Func<Content, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Content GetSingleOrDefault(Expression<Func<Content, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Content Get(int id)
-        {
-            throw new NotImplementedException();
         }
 
         IEnumerable<Content> IRepository<Content>.GetAll()

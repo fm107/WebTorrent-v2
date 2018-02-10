@@ -15,6 +15,7 @@ namespace WebTorrent.Common.MimeTypes
       Func<string, string> keySelector = null;
       return new ReadOnlyDictionary<string, string>((IDictionary<string, string>) ((IEnumerable<string>) allExts).ToDictionary<string, string, string>(keySelector, (Func<string, string>) (e => MimeTypes.LookupType(e))));
     }));
+
     private static readonly string[] ALL_EXTS = new string[1019]
     {
       "ez",
@@ -1040,15 +1041,9 @@ namespace WebTorrent.Common.MimeTypes
     public const string UnknownMimeType = "application/octet-stream";
 
     /// <summary>Dictionary of all available types</summary>
-    public static ReadOnlyDictionary<string, string> TypeMap
-    {
-      get
-      {
-        return MimeTypes.LazyDict.Value;
-      }
-    }
+    public static ReadOnlyDictionary<string, string> TypeMap => LazyDict.Value;
 
-    /// <param name="file">The raw file extensions (ex: "zip") or the file name or file path</param>
+      /// <param name="file">The raw file extensions (ex: "zip") or the file name or file path</param>
     /// <returns>The mime type string, returns "application/octet-stream" if no known type was found</returns>
     public static string GetMimeMapping(string file)
     {

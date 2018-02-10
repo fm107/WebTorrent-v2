@@ -1,97 +1,97 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using WebTorrent.Data.Models.Interfaces;
 using WebTorrent.Data.Repositories.Interfaces;
-using WebTorrent.Model;
 
-namespace WebTorrent.Repository
+namespace WebTorrent.Data.Repositories
 {
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    public abstract class BaseRepository<C, T> : IRepository<T> where T : class, IEntity where C : DbContext
+    public abstract class BaseRepository<TDbContext, TEntity> : IRepository<TEntity> where TEntity : class, IEntity where TDbContext : DbContext
     {
-        private readonly C _context;
+        protected readonly TDbContext _context;
+        protected readonly DbSet<TEntity> _entities;
 
-        protected BaseRepository(C context)
+        protected BaseRepository(TDbContext context)
         {
             _context = context;
+            _entities = context.Set<TEntity>();
         }
 
-        public T Get(int id)
+        public TEntity Get(int id)
         {
-            throw new NotImplementedException();
+            return _entities.Find(id);
         }
 
-        IEnumerable<T> IRepository<T>.GetAll()
+        IEnumerable<TEntity> IRepository<TEntity>.GetAll()
         {
             return GetAll();
         }
 
-        public virtual IQueryable<T> GetAll()
+        public virtual void Add(TEntity entity)
         {
-            IQueryable<T> query = _context.Set<T>();
-            return query;
+            _context.Set<TEntity>().Add(entity);
         }
 
-        public virtual void Add(T entity)
+        public void AddRange(IEnumerable<TEntity> entities)
         {
-            _context.Set<T>().Add(entity);
+            _entities.AddRange(entities);
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public virtual void Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            _context.Set<TEntity>().Update(entity);
         }
 
-        public virtual void Delete(T entity)
+        public void UpdateRange(IEnumerable<TEntity> entities)
         {
-            _context.Set<T>().Remove(entity);
+            _entities.UpdateRange(entities);
         }
 
-        public virtual void Update(T entity)
+        public void Remove(TEntity entity)
         {
-            _context.Set<T>().Update(entity);
+            _entities.Remove(entity);
         }
 
-        public void UpdateRange(IEnumerable<T> entities)
+        public void RemoveRange(IEnumerable<TEntity> entities)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveRange(IEnumerable<T> entities)
-        {
-            throw new NotImplementedException();
+            _entities.RemoveRange(entities);
         }
 
         public int Count()
         {
-            throw new NotImplementedException();
+            return _entities.Count();
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _entities.Where(predicate);
         }
 
-        public T GetSingleOrDefault(Expression<Func<T, bool>> predicate)
+        public TEntity GetSingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _entities.SingleOrDefault(predicate);
         }
 
-        public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
+        public virtual IQueryable<TEntity> GetAll()
         {
-            var query = _context.Set<T>().Where(predicate);
+            IQueryable<TEntity> query = _context.Set<TEntity>();
             return query;
         }
 
-        public virtual void Edit(T entity)
+        public virtual void Delete(TEntity entity)
+        {
+            _context.Set<TEntity>().Remove(entity);
+        }
+
+        public virtual IQueryable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
+        {
+            var query = _context.Set<TEntity>().Where(predicate);
+            return query;
+        }
+
+        public virtual void Edit(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
         }
