@@ -20,7 +20,7 @@ namespace WebTorrent.Web
                 try
                 {
                     var databaseInitializer = services.GetRequiredService<IDatabaseInitializer>();
-                    databaseInitializer.SeedAsync().Wait();
+                    databaseInitializer.SeedAsync().ConfigureAwait(false).GetAwaiter().GetResult();
                 }
                 catch (Exception ex)
                 {

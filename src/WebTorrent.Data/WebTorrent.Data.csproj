@@ -17,4 +17,8 @@
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-rc2-0783" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+
 </Project>
