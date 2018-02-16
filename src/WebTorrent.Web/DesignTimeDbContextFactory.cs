@@ -22,7 +22,9 @@ namespace WebTorrent.Web
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-            builder.UseSqlite(configuration["ConnectionStrings:Sqlite"], b => b.MigrationsAssembly("WebTorrent.Web"));
+            //SqLite
+            //builder.UseSqlite(configuration["ConnectionStrings:Sqlite"], b => b.MigrationsAssembly("WebTorrent.Web"));
+            builder.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("WebTorrent.Web"));
             builder.UseOpenIddict();
 
             return new ApplicationDbContext(builder.Options);

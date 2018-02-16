@@ -50,11 +50,10 @@ namespace WebTorrent.Web
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlite(Configuration["ConnectionStrings:Sqlite"],
-                    b => b.MigrationsAssembly("WebTorrent.Web"));
+                //SqLite
+                //options.UseSqlite(Configuration["ConnectionStrings:Sqlite"], b => b.MigrationsAssembly("WebTorrent.Web"));
 
-                //localdb
-                //options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("WebTorrent.Web"));
+                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("WebTorrent.Web"));
                 options.UseOpenIddict();
             });
 

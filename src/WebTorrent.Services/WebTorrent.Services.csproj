@@ -15,4 +15,8 @@
     <ProjectReference Include="..\WebTorrent.UTorrent\UTorrentClientApi.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TreeMap\" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using WebTorrent.Data.Core;
 using WebTorrent.Data.Core.Interfaces;
@@ -20,13 +22,14 @@ namespace WebTorrent.Data
         private readonly IAccountManager _accountManager;
         private readonly ApplicationDbContext _context;
         private readonly ILogger _logger;
+        private readonly IConfiguration _config;
 
-        public DatabaseInitializer(ApplicationDbContext context, IAccountManager accountManager,
-            ILogger<DatabaseInitializer> logger)
+        public DatabaseInitializer(ApplicationDbContext context, IAccountManager accountManager, ILogger<DatabaseInitializer> logger, IConfiguration config)
         {
             _accountManager = accountManager;
             _context = context;
             _logger = logger;
+            _config = config;
         }
 
         public async Task SeedAsync()
