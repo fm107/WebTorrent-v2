@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SavingDirectoryStructureByUsingNestedSetModel.Models;
 using WebTorrent.Data.Models;
 using WebTorrent.Data.Models.Interfaces;
 
@@ -22,7 +23,7 @@ namespace WebTorrent.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Content> Content { get; set; }
-        public DbSet<FileSystemItem> FsItem { get; set; }
+        public DbSet<DirectoryTreeMap> TreeMap { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

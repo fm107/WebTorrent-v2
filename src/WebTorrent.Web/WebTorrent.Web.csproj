@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebTorrent.Data\WebTorrent.Data.csproj" />
     <ProjectReference Include="..\WebTorrent.Services\WebTorrent.Services.csproj" />
     <ProjectReference Include="..\WebTorrent.Tools\WebTorrent.Tools.csproj" />
   </ItemGroup>

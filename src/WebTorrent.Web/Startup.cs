@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Net;
 using AspNet.Security.OAuth.Validation;
 using AspNet.Security.OpenIdConnect.Primitives;
@@ -23,6 +24,7 @@ using WebTorrent.Data.Core.Interfaces;
 using WebTorrent.Data.Models;
 using WebTorrent.Services.FileSystemService;
 using WebTorrent.Services.TorrentService;
+using WebTorrent.Services.TreeMap;
 using WebTorrent.Tools.FFmpeg;
 using WebTorrent.Web.Authorization;
 using WebTorrent.Web.Helpers;
@@ -200,7 +202,7 @@ namespace WebTorrent.Web
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ApplicationDbContext ct)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug(LogLevel.Warning);
@@ -301,6 +303,10 @@ namespace WebTorrent.Web
 
             //store unhandled exceptions https://be.exceptionless.io/dashboard
             app.UseExceptionless("XA6U77cTOrVkt1J23Wh9Hs0IO34PDYUGCYLzXyCC");
+
+            var t = new TreeMapService(ct);
+            t.InitRoot();
+            t.DisplayRootTree();
         }
     }
 }

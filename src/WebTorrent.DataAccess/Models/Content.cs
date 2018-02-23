@@ -5,7 +5,7 @@ using WebTorrent.Data.Models.Interfaces;
 
 namespace WebTorrent.Data.Models
 {
-    public class Content : IEntity
+    public class Content : IEntity 
     {
         [JsonIgnore]
         public int Id { get; set; }

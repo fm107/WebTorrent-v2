@@ -6,11 +6,16 @@ using System.IO;
 
 namespace WebTorrent.Web.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class NewDbStructure : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Scripts\addnew.sql")));
+            migrationBuilder.Sql(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                @"Scripts\InsertNewNode.sql")));
+            migrationBuilder.Sql(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                @"Scripts\DeleteNode.sql")));
+            migrationBuilder.Sql(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                @"Scripts\MoveNode.sql")));
 
             migrationBuilder.CreateTable(
                 name: "AppCustomers",
@@ -115,10 +120,12 @@ namespace WebTorrent.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CurrentFolder = table.Column<string>(nullable: true),
                     Hash = table.Column<string>(nullable: true),
                     IsInProgress = table.Column<bool>(nullable: false),
-                    ParentFolder = table.Column<string>(nullable: true),
+                    Lft = table.Column<int>(nullable: false),
+                    ParentId = table.Column<int>(nullable: false),
+                    RelativePath = table.Column<string>(nullable: true),
+                    Rgt = table.Column<int>(nullable: false),
                     TorrentName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -156,6 +163,23 @@ namespace WebTorrent.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OpenIddictScopes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TreeMap",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FileType = table.Column<int>(nullable: false),
+                    Lft = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    ParentId = table.Column<int>(nullable: false),
+                    Rgt = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TreeMap", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -339,7 +363,7 @@ namespace WebTorrent.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FsItem",
+                name: "FileSystemItem",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -352,13 +376,13 @@ namespace WebTorrent.Web.Migrations
                     Name = table.Column<string>(nullable: true),
                     Size = table.Column<long>(nullable: false),
                     Stream = table.Column<string>(nullable: true),
-                    Type = table.Column<string>(nullable: true)
+                    Type = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FsItem", x => x.Id);
+                    table.PrimaryKey("PK_FileSystemItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FsItem_Content_ContentId",
+                        name: "FK_FileSystemItem_Content_ContentId",
                         column: x => x.ContentId,
                         principalTable: "Content",
                         principalColumn: "Id",
@@ -534,8 +558,8 @@ namespace WebTorrent.Web.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FsItem_ContentId",
-                table: "FsItem",
+                name: "IX_FileSystemItem_ContentId",
+                table: "FileSystemItem",
                 column: "ContentId");
 
             migrationBuilder.CreateIndex(
@@ -588,13 +612,16 @@ namespace WebTorrent.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "FsItem");
+                name: "FileSystemItem");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictTokens");
+
+            migrationBuilder.DropTable(
+                name: "TreeMap");
 
             migrationBuilder.DropTable(
                 name: "AppOrders");

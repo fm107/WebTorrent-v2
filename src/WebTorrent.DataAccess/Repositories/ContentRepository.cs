@@ -24,15 +24,16 @@ namespace WebTorrent.Data.Repositories
                 return new[] {contentbyHash};
             }
 
-            var contents = await _context.Content.Where(t => t.ParentFolder.Equals(folder)).Include(f => f.FsItems)
-                .AsNoTracking().ToListAsync();
+            //var contents = await _context.Content.Where(t => t.ParentFolder.Equals(folder)).Include(f => f.FsItems)
+            //    .AsNoTracking().ToListAsync();
 
-            foreach (var content in contents)
-            {
-                content.FsItems = content.FsItems.Where(b => b.Type.Equals("folder")).ToList();
-            }
+            //foreach (var content in contents)
+            //{
+            //    content.FsItems = content.FsItems.Where(b => b.Type.Equals("folder")).ToList();
+            //}
 
-            return contents;
+            //return contents;
+            return null;
         }
 
         [SuppressMessage("ReSharper", "AssignNullToNotNullAttribute")]
@@ -69,7 +70,7 @@ namespace WebTorrent.Data.Repositories
 
         public void Delete(params FileSystemItem[] fsItemsRecord)
         {
-            _context.FsItem.RemoveRange(fsItemsRecord);
+            //_context.FsItem.RemoveRange(fsItemsRecord);
         }
 
         async Task IContentRepository.Save()

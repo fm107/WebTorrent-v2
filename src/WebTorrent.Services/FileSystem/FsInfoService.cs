@@ -54,7 +54,7 @@ namespace WebTorrent.Services.FileSystemService
                     FullName = directoryInfo.FullName,
                     LastChanged = DateTime.Now,
                     Size = file.Size,
-                    Type = "file"
+                    Type = FsType.File
                 }));
             }
 
@@ -63,7 +63,7 @@ namespace WebTorrent.Services.FileSystemService
                 Name = Path.ChangeExtension(torrent.Name, null),
                 LastChanged = DateTime.Now,
                 Size = fsContent.Sum(f => f.Size),
-                Type = "folder",
+                Type = FsType.Folder,
                 FullName = directoryInfo.FullName
             };
 
@@ -75,8 +75,9 @@ namespace WebTorrent.Services.FileSystemService
             {
                 TorrentName = Path.ChangeExtension(torrent.Name, null),
                 FsItems = fsContent,
-                CurrentFolder = currentFolder,
-                ParentFolder = parentFolder,
+                RelativePath = currentFolder,
+                //CurrentFolder = currentFolder,
+                //ParentFolder = parentFolder,
                 Hash = torrent.Hash,
                 IsInProgress = true
             };

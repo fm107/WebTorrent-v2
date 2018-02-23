@@ -9,6 +9,8 @@
     <PackageProjectUrl>https://github.com/emonney/QuickApp</PackageProjectUrl>
     <RepositoryUrl>https://github.com/emonney/QuickApp.git</RepositoryUrl>
     <Company>EBENMONNEY</Company>
+    <AssemblyName>WebTorrent.DataAccess</AssemblyName>
+    <RootNamespace>WebTorrent.DataAccess</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +18,18 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.1" />
     <PackageReference Include="OpenIddict" Version="2.0.0-rc2-0783" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-rc2-0783" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Scripts\DeleteNode.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\InsertNewNode.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Scripts\MoveNode.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

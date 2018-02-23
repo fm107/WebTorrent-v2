@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using WebTorrent.Services;
 using WebTorrent.Services.TorrentService;
 
 
@@ -30,8 +29,7 @@ namespace WebTorrent.Web.Controllers
 
         private WebSocket _webSocket;
 
-        public TorrentController(ILogger<TorrentController> log, IHostingEnvironment environment,
-            TorrentService torrentClient)
+        public TorrentController(ILogger<TorrentController> log, IHostingEnvironment environment, TorrentService torrentClient)
         {
             _torrentClient = torrentClient;
             _client = new HttpClient();

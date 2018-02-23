@@ -5,9 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using SavingDirectoryStructureByUsingNestedSetModel.Models;
 using System;
 using WebTorrent.Data;
 using WebTorrent.Data.Core;
+using WebTorrent.Data.Models;
 
 namespace WebTorrent.Web.Migrations
 {
@@ -222,6 +224,26 @@ namespace WebTorrent.Web.Migrations
                     b.ToTable("OpenIddictTokens");
                 });
 
+            modelBuilder.Entity("SavingDirectoryStructureByUsingNestedSetModel.Models.DirectoryTreeMap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("FileType");
+
+                    b.Property<int>("Lft");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ParentId");
+
+                    b.Property<int>("Rgt");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TreeMap");
+                });
+
             modelBuilder.Entity("WebTorrent.Data.Models.ApplicationRole", b =>
                 {
                     b.Property<string>("Id")
@@ -328,13 +350,17 @@ namespace WebTorrent.Web.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("CurrentFolder");
-
                     b.Property<string>("Hash");
 
                     b.Property<bool>("IsInProgress");
 
-                    b.Property<string>("ParentFolder");
+                    b.Property<int>("Lft");
+
+                    b.Property<int>("ParentId");
+
+                    b.Property<string>("RelativePath");
+
+                    b.Property<int>("Rgt");
 
                     b.Property<string>("TorrentName");
 
@@ -408,13 +434,13 @@ namespace WebTorrent.Web.Migrations
 
                     b.Property<string>("Stream");
 
-                    b.Property<string>("Type");
+                    b.Property<int>("Type");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ContentId");
 
-                    b.ToTable("FsItem");
+                    b.ToTable("FileSystemItem");
                 });
 
             modelBuilder.Entity("WebTorrent.Data.Models.Order", b =>
